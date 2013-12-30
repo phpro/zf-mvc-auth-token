@@ -1,0 +1,29 @@
+{
+    "name": "phpro/zf2-mvc-auth-token",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Toon Verwerft",
+            "email": "toon.verwerft@phpro.be"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+      "zendframework/zend-eventmanager": "2.*",
+      "zendframework/zend-http": "2.*",
+      "zendframework/zend-modulemanager": "2.*",
+      "zendframework/zend-mvc": "2.*",
+      "zendframework/zend-servicemanager": "2.*",
+      "zendframework/zend-stdlib": "2.*",
+      "zfcampus/zf-mvc-auth": "~1.0-dev"
+    },
+    "require-dev": {
+      "fabpot/PHP-CS-Fixer": "*",
+      "phpspec/phpspec": "2.0.*@dev"
+    },
+    "autoload": {
+      "psr-0": {
+        "MvcAuthToken": "src/"
+      }
+    }
+}
