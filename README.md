@@ -71,3 +71,10 @@ public function onBootstrap(MvcEvent $e)
 }
 ```
 
+### How to retrieve the authenticated user?
+```php
+/** @var \Zend\Authentication\AuthenticationService $authentication */
+$authentication = $serviceLocator->get('authentication');
+$identity = $authentication->getIdentity();
+```
+
