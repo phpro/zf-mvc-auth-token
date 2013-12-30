@@ -1,7 +1,7 @@
 # Mvc-Auth-Token implementation for zend framework 2
 This module will take care of HTTP Token authentication as described in the [draft-hammer-http-token-auth-01](http://tools.ietf.org/html/draft-hammer-http-token-auth-01). It should be used with [zf-mvc-auth](https://github.com/zfcampus/zf-mvc-auth). 
 
-The purpose of this module is to provide an extentable interface for validating Tokens. The validation of the Token should be done in a custom adapter.
+The purpose of this module is to provide an extendable interface for validating Tokens. The validation of the Token should be done in a custom adapter.
 
 ## Installation
 ```
@@ -13,7 +13,7 @@ php composer.phar install
 
 ### Add to composer.json
 ```
-"phpro/zf2-mvc-auth-token": "master-dev"
+"phpro/zf2-mvc-auth-token": "dev-master"
 ```
 
 ### Add module to application.config.php
