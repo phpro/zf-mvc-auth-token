@@ -65,3 +65,4 @@ public function onBootstrap(MvcEvent $e)
     $events->attach(MvcAuthEvent::EVENT_AUTHENTICATION, $services->get('YourModule\Authentication\Listener\TokenListener'), 1000);
 }
 ```
+
