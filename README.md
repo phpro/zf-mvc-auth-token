@@ -27,13 +27,18 @@ return array(
 );
 ```
 
-### Add a new listener in your module 'module.config.php'
+### Add a new listener and adapter in your module 'module.config.php'
 ```php
-return array
+return array(
+    'service_manager' => array(
+        'invokables' => array(
+            'YourModule\Authentication\Adapter\TokenAdapter' => 'YourModule\Authentication\Adapter\TokenAdapter',
+        )
+    ),
     'mvc-auth-token-authentication-listener' => array(
         'YourModule\Authentication\Listener\TokenListener' => array(
             'adapter' => 'YourModule\Authentication\Adapter\TokenAdapter',
-        )
+        ),
     ),
 );
 ```
