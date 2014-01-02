@@ -97,9 +97,16 @@ class AuthenticationListener
 
         try {
             if ($tokenServer->authenticate()) {
-                $token = $tokenServer->getToken();
-                $identity = new Identity\AuthenticatedIdentity($token->getToken());
-                $identity->setName($token->getToken());
+
+                // Use given identity
+                $user = $tokenServer->getUserId();
+                if ($user instanceof Identity\IdentityInterface) {
+                    return $user;
+                }
+
+                // Create identity
+                $identity = new Identity\AuthenticatedIdentity($user);
+                $identity->setName($user);
                 return $identity;
             }
         } catch (TokenException $e) {

@@ -25,6 +25,7 @@ class AuthenticationListenerSpec extends ObjectBehavior
         $tokenServer->setAdapter(Argument::any())->willReturn(null);
         $tokenServer->setRequest(Argument::any())->willReturn(null);
         $tokenServer->setResponse(Argument::any())->willReturn(null);
+        $tokenServer->getUserId()->willReturn('token');
         $tokenServer->getToken()->willReturn($token);
     }
 
@@ -75,8 +76,9 @@ class AuthenticationListenerSpec extends ObjectBehavior
      * @param \Zend\Http\Request $response
      * @param \MvcAuthToken\TokenServer $tokenServer
      * @param \MvcAuthToken\Adapter\AdapterInterface $adapter
+     * @param \ZF\MvcAuth\Identity\GuestIdentity $identity
      */
-    public function it_should_return_authenticated_identity_when_valid($mvcAuthEvent, $mvcEvent, $request, $response, $tokenServer, $adapter)
+    public function it_should_return_authenticated_identity_when_valid($mvcAuthEvent, $mvcEvent, $request, $response, $tokenServer, $adapter, $identity)
     {
         $mvcAuthEvent->getMvcEvent()->willReturn($mvcEvent);
         $mvcEvent->getRequest()->willReturn($request);
@@ -85,8 +87,14 @@ class AuthenticationListenerSpec extends ObjectBehavior
         $this->setTokenServer($tokenServer);
         $this->setAdapter($adapter);
 
+        // String authentication:
         $tokenServer->authenticate()->willReturn(true);
         $this->__invoke($mvcAuthEvent)->shouldReturnAnInstanceOf('ZF\MvcAuth\Identity\AuthenticatedIdentity');
+
+        // Identity authentication
+        $tokenServer->getUserId()->willReturn($identity);
+        $tokenServer->authenticate()->willReturn(true);
+        $this->__invoke($mvcAuthEvent)->shouldBe($identity);
     }
 
 

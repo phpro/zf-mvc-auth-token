@@ -199,7 +199,7 @@ class TokenServer
     }
 
     /**
-     * @return string
+     * @return string|\Zf\MvcAuth\Identity\IdentityInterface
      */
     public function getUserId()
     {

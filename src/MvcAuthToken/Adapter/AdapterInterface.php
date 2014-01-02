@@ -38,7 +38,7 @@ interface AdapterInterface
     /**
      * @param Token $token
      *
-     * @return mixed
+     * @return string|\Zf\MvcAuth\Identity\IdentityInterface
      */
     public function getUserId(Token $token);
 
