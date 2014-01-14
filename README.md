@@ -13,7 +13,7 @@ php composer.phar install
 
 ### Add to composer.json
 ```
-"phpro/zf2-mvc-auth-token": "dev-master"
+"phpro/zf-mvc-auth-token": "dev-master"
 ```
 
 ### Add module to application.config.php
