@@ -1,6 +1,6 @@
 <?php
 
-namespace spec\MvcAuthToken;
+namespace spec\Phpro\MvcAuthToken;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
@@ -9,7 +9,7 @@ class TokenSpec extends ObjectBehavior
 {
     public function it_is_initializable()
     {
-        $this->shouldHaveType('MvcAuthToken\Token');
+        $this->shouldHaveType('Phpro\MvcAuthToken\Token');
     }
 
     public function it_should_have_realm()

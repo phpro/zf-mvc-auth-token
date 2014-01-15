@@ -1,6 +1,6 @@
 <?php
 
-namespace spec\MvcAuthToken\Listener;
+namespace spec\Phpro\MvcAuthToken\Listener;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
@@ -10,16 +10,16 @@ class AuthenticationListenerSpec extends ObjectBehavior
 {
     public function it_is_initializable()
     {
-        $this->shouldHaveType('MvcAuthToken\Listener\AuthenticationListener');
+        $this->shouldHaveType('Phpro\MvcAuthToken\Listener\AuthenticationListener');
     }
 
     /**
-     * @param \MvcAuthToken\TokenServer $tokenServer
+     * @param \Phpro\MvcAuthToken\TokenServer $tokenServer
      */
     protected function mockTokenServer($tokenServer)
     {
         $prophet = new Prophet();
-        $token = $prophet->prophesize('MvcAuthToken\Token');
+        $token = $prophet->prophesize('Phpro\MvcAuthToken\Token');
         $token->getToken()->willReturn('token');
 
         $tokenServer->setAdapter(Argument::any())->willReturn(null);
@@ -30,7 +30,7 @@ class AuthenticationListenerSpec extends ObjectBehavior
     }
 
     /**
-     * @param \MvcAuthToken\Adapter\AdapterInterface $adapter
+     * @param \Phpro\MvcAuthToken\Adapter\AdapterInterface $adapter
      */
     public function it_should_have_adapter($adapter)
     {
@@ -74,8 +74,8 @@ class AuthenticationListenerSpec extends ObjectBehavior
      * @param \Zend\Mvc\MvcEvent $mvcEvent
      * @param \Zend\Http\Request $request
      * @param \Zend\Http\Request $response
-     * @param \MvcAuthToken\TokenServer $tokenServer
-     * @param \MvcAuthToken\Adapter\AdapterInterface $adapter
+     * @param \Phpro\MvcAuthToken\TokenServer $tokenServer
+     * @param \Phpro\MvcAuthToken\Adapter\AdapterInterface $adapter
      * @param \ZF\MvcAuth\Identity\GuestIdentity $identity
      */
     public function it_should_return_authenticated_identity_when_valid($mvcAuthEvent, $mvcEvent, $request, $response, $tokenServer, $adapter, $identity)
@@ -103,8 +103,8 @@ class AuthenticationListenerSpec extends ObjectBehavior
      * @param \Zend\Mvc\MvcEvent $mvcEvent
      * @param \Zend\Http\Request $request
      * @param \Zend\Http\Request $response
-     * @param \MvcAuthToken\TokenServer $tokenServer
-     * @param \MvcAuthToken\Adapter\AdapterInterface $adapter
+     * @param \Phpro\MvcAuthToken\TokenServer $tokenServer
+     * @param \Phpro\MvcAuthToken\Adapter\AdapterInterface $adapter
      */
     public function it_should_return_guest_identity_when_invalid($mvcAuthEvent, $mvcEvent, $request, $response, $tokenServer, $adapter)
     {
@@ -120,7 +120,7 @@ class AuthenticationListenerSpec extends ObjectBehavior
         $this->__invoke($mvcAuthEvent)->shouldReturnAnInstanceOf('ZF\MvcAuth\Identity\GuestIdentity');
 
         // Exception while reading token data
-        $tokenServer->authenticate()->willThrow('MvcAuthToken\Exception\TokenException');
+        $tokenServer->authenticate()->willThrow('Phpro\MvcAuthToken\Exception\TokenException');
         $this->__invoke($mvcAuthEvent)->shouldReturnAnInstanceOf('ZF\MvcAuth\Identity\GuestIdentity');
     }
 

@@ -23,7 +23,7 @@
     },
     "autoload": {
       "psr-0": {
-        "MvcAuthToken": "src/"
+        "Phpro\\MvcAuthToken": "src/"
       }
     }
 }

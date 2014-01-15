@@ -1,6 +1,6 @@
 <?php
 
-namespace MvcAuthToken;
+namespace Phpro\MvcAuthToken;
 
 /**
  * Class Token

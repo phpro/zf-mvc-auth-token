@@ -1,10 +1,10 @@
 <?php
 
-namespace MvcAuthToken\Listener;
+namespace Phpro\MvcAuthToken\Listener;
 
-use MvcAuthToken\Adapter\AdapterInterface;
-use MvcAuthToken\Exception\TokenException;
-use MvcAuthToken\TokenServer;
+use Phpro\MvcAuthToken\Adapter\AdapterInterface;
+use Phpro\MvcAuthToken\Exception\TokenException;
+use Phpro\MvcAuthToken\TokenServer;
 use Zend\EventManager\ListenerAggregateTrait;
 use Zend\Mvc\MvcEvent;
 use Zend\Http\Request as HttpRequest;
@@ -14,7 +14,7 @@ use ZF\MvcAuth\MvcAuthEvent;
 /**
  * Class AuthenticationListener
  *
- * @package MvcAuthToken\Listener
+ * @package Phpro\MvcAuthToken\Listener
  */
 class AuthenticationListener
 {
@@ -54,7 +54,7 @@ class AuthenticationListener
     }
 
     /**
-     * @param \MvcAuthToken\TokenServer $tokenServer
+     * @param \Phpro\MvcAuthToken\TokenServer $tokenServer
      */
     public function setTokenServer($tokenServer)
     {
@@ -62,7 +62,7 @@ class AuthenticationListener
     }
 
     /**
-     * @return \MvcAuthToken\TokenServer
+     * @return \Phpro\MvcAuthToken\TokenServer
      */
     public function getTokenServer()
     {

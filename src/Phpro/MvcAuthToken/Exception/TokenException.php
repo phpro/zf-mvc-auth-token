@@ -1,6 +1,6 @@
 <?php
 
-namespace MvcAuthToken\Exception;
+namespace Phpro\MvcAuthToken\Exception;
 
 /**
  * Class TokenException

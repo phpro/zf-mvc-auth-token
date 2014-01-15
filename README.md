@@ -20,7 +20,7 @@ php composer.phar install
 ```php
 return array(
     'modules' => array(
-        'MvcAuthToken',
+        'Phpro\MvcAuthToken',
         // other libs...
     ),
     // Other config
@@ -43,12 +43,18 @@ return array(
 );
 ```
 
-### Add a TokenAdapter to your Module. 
+*Note: * The listener is not an actual class.
+The AbstractAuthenticationListener will create an AuthenticationListener for you, which is configured with your custom adapter.
+
+### Add a TokenAdapter class to your Module.
 e.g. `YourModule\Authentication\Adapter\TokenAdapter`
+
+This custom class will implement the AdapterInterface and should be used to validate your token:
+
 
 ``` php
 class YourModule\Authentication\Adapter\TokenAdapter 
-    implements MvcAuthToken\Adapter\AdapterInterface
+    implements \Phpro\MvcAuthToken\Adapter\AdapterInterface
 {
     // Implement your own Token Adapter logica
 }
@@ -56,7 +62,9 @@ class YourModule\Authentication\Adapter\TokenAdapter
 
 ### Add a new listener in your Module::onBootstrap
 
-*Note:* Make sure that the priority is above the current zf-mvc-auth authentication priority.
+Now the last step is to add your configured AuthenticationListener to the MvcAuthEvent.
+When the Authentication event is triggered, your listener will handle Token Authorization.
+
 ```php
 /**
  * @param MvcEvent $e
@@ -70,6 +78,8 @@ public function onBootstrap(MvcEvent $e)
     $events->attach(MvcAuthEvent::EVENT_AUTHENTICATION, $services->get('YourModule\Authentication\Listener\TokenListener'), 1000);
 }
 ```
+
+*Note:* Make sure that the priority is above the current zf-mvc-auth authentication priority.
 
 ### How to retrieve the authenticated user?
 ```php

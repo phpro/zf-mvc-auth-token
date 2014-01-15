@@ -1,9 +1,9 @@
 <?php
 
-namespace MvcAuthToken;
+namespace Phpro\MvcAuthToken;
 
-use MvcAuthToken\Adapter\AdapterInterface;
-use MvcAuthToken\Exception\TokenException;
+use Phpro\MvcAuthToken\Adapter\AdapterInterface;
+use Phpro\MvcAuthToken\Exception\TokenException;
 use Zend\Http\Request;
 use Zend\Http\Response;
 use Zend\Stdlib\Hydrator\ClassMethods;
@@ -92,7 +92,7 @@ class TokenServer
     }
 
     /**
-     * @param \MvcAuthToken\Token $token
+     * @param \Phpro\MvcAuthToken\Token $token
      */
     public function setToken($token)
     {

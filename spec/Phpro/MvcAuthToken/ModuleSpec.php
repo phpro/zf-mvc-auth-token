@@ -1,6 +1,6 @@
 <?php
 
-namespace spec\MvcAuthToken;
+namespace spec\Phpro\MvcAuthToken;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
@@ -9,7 +9,7 @@ class ModuleSpec extends ObjectBehavior
 {
     public function it_is_initializable()
     {
-        $this->shouldHaveType('MvcAuthToken\Module');
+        $this->shouldHaveType('Phpro\MvcAuthToken\Module');
     }
 
     public function it_should_implement_autoloader_provider_interface()

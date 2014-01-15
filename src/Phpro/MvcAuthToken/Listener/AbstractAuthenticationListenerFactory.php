@@ -1,17 +1,17 @@
 <?php
 
-namespace MvcAuthToken\Listener;
+namespace Phpro\MvcAuthToken\Listener;
 
 
-use MvcAuthToken\Adapter\AdapterInterface;
-use MvcAuthToken\Exception\TokenException;
+use Phpro\MvcAuthToken\Adapter\AdapterInterface;
+use Phpro\MvcAuthToken\Exception\TokenException;
 use Zend\ServiceManager\AbstractFactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
  * Class AbstractTokenValidationListenerFactory
  *
- * @package MvcAuthToken\Listener
+ * @package Phpro\MvcAuthToken\Listener
  */
 class AbstractAuthenticationListenerFactory implements AbstractFactoryInterface
 {
@@ -61,7 +61,7 @@ class AbstractAuthenticationListenerFactory implements AbstractFactoryInterface
      * @param                         $requestedName
      *
      * @return mixed|AuthenticationListener
-     * @throws \MvcAuthToken\Exception\TokenException
+     * @throws \Phpro\MvcAuthToken\Exception\TokenException
      */
     public function createServiceWithName(ServiceLocatorInterface $serviceLocator, $name, $requestedName)
     {
@@ -82,7 +82,7 @@ class AbstractAuthenticationListenerFactory implements AbstractFactoryInterface
             throw new TokenException(sprintf('The token adapter of %s should implement AdapterInterface.', $adapterClass));
         }
 
-        $tokenServer = $serviceLocator->get('MvcAuthToken\TokenServer');
+        $tokenServer = $serviceLocator->get('Phpro\MvcAuthToken\TokenServer');
 
         $listener = new AuthenticationListener();
         $listener->setAdapter($adapter);

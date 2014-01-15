@@ -1,8 +1,8 @@
 <?php
 
-namespace MvcAuthToken\Adapter;
+namespace Phpro\MvcAuthToken\Adapter;
 
-use MvcAuthToken\Token;
+use Phpro\MvcAuthToken\Token;
 
 /**
  * Class AdapterInterface

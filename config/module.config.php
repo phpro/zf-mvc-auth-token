@@ -2,10 +2,10 @@
 return [
     'service_manager' => [
         'abstract_factories' => [
-            'MvcAuthToken\Listener\AbstractAuthenticationListenerFactory',
+            'Phpro\MvcAuthToken\Listener\AbstractAuthenticationListenerFactory',
         ],
         'invokables' => [
-            'MvcAuthToken\TokenServer' => 'MvcAuthToken\TokenServer'
+            'Phpro\MvcAuthToken\TokenServer' => 'Phpro\MvcAuthToken\TokenServer'
         ]
     ]
 ];

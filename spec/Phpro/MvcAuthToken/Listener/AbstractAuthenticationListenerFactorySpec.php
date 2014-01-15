@@ -1,6 +1,6 @@
 <?php
 
-namespace spec\MvcAuthToken\Listener;
+namespace spec\Phpro\MvcAuthToken\Listener;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
@@ -10,7 +10,7 @@ class AbstractAuthenticationListenerFactorySpec extends ObjectBehavior
 {
     public function it_is_initializable()
     {
-        $this->shouldHaveType('MvcAuthToken\Listener\AbstractAuthenticationListenerFactory');
+        $this->shouldHaveType('Phpro\MvcAuthToken\Listener\AbstractAuthenticationListenerFactory');
     }
 
     public function it_should_implement_abstractFactoryInterface()
@@ -35,13 +35,13 @@ class AbstractAuthenticationListenerFactorySpec extends ObjectBehavior
         $serviceLocator->has('Config')->willReturn(true);
         $serviceLocator->get('Config')->willReturn($config);
 
-        $adapter = $prophet->prophesize('\MvcAuthToken\Adapter\AdapterInterface');
+        $adapter = $prophet->prophesize('\Phpro\MvcAuthToken\Adapter\AdapterInterface');
         $serviceLocator->has('TokenAdapter')->willReturn(true);
         $serviceLocator->get('TokenAdapter')->willReturn($adapter);
 
-        $tokenServer = $prophet->prophesize('\MvcAuthToken\TokenServer');
-        $serviceLocator->has('MvcAuthToken\TokenServer')->willReturn(true);
-        $serviceLocator->get('MvcAuthToken\TokenServer')->willReturn($tokenServer);
+        $tokenServer = $prophet->prophesize('\Phpro\MvcAuthToken\TokenServer');
+        $serviceLocator->has('Phpro\MvcAuthToken\TokenServer')->willReturn(true);
+        $serviceLocator->get('Phpro\MvcAuthToken\TokenServer')->willReturn($tokenServer);
     }
 
     /**
@@ -72,7 +72,7 @@ class AbstractAuthenticationListenerFactorySpec extends ObjectBehavior
         $this->mockConfig($serviceLocator);
         $key = 'TokenListener';
         $this->createServiceWithName($serviceLocator, $key, $key)
-            ->shouldReturnAnInstanceOf('\MvcAuthToken\Listener\AuthenticationListener');
+            ->shouldReturnAnInstanceOf('\Phpro\MvcAuthToken\Listener\AuthenticationListener');
     }
 
     /**
@@ -85,18 +85,18 @@ class AbstractAuthenticationListenerFactorySpec extends ObjectBehavior
         // Adapter key does not exist:
         $serviceLocator->has('Config')->willReturn(true);
         $serviceLocator->get('Config')->willReturn(['mvc-auth-token-authentication-listener' => ['TokenListener' => []]]);
-        $this->shouldThrow('MvcAuthToken\Exception\TokenException')->duringCreateServiceWithName($serviceLocator, $key, $key);
+        $this->shouldThrow('Phpro\MvcAuthToken\Exception\TokenException')->duringCreateServiceWithName($serviceLocator, $key, $key);
 
         // Adapter key does not exist
         $this->mockConfig($serviceLocator);
         $serviceLocator->has('TokenAdapter')->willReturn(false);
         $key = 'TokenListener';
-        $this->shouldThrow('MvcAuthToken\Exception\TokenException')->duringCreateServiceWithName($serviceLocator, $key, $key);
+        $this->shouldThrow('Phpro\MvcAuthToken\Exception\TokenException')->duringCreateServiceWithName($serviceLocator, $key, $key);
 
         // Invalid adapter type
         $serviceLocator->has('TokenAdapter')->willReturn(true);
         $serviceLocator->get('TokenAdapter')->willReturn(null);
-        $this->shouldThrow('MvcAuthToken\Exception\TokenException')->duringCreateServiceWithName($serviceLocator, $key, $key);
+        $this->shouldThrow('Phpro\MvcAuthToken\Exception\TokenException')->duringCreateServiceWithName($serviceLocator, $key, $key);
     }
 
 }

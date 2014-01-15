@@ -1,3 +1,3 @@
 <?php
 
-require 'src/MvcAuthToken/Module.php';
+require 'src/Phpro/MvcAuthToken/Module.php';

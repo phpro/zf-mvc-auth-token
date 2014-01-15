@@ -1,6 +1,6 @@
 <?php
 
-namespace spec\MvcAuthToken;
+namespace spec\Phpro\MvcAuthToken;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
@@ -9,7 +9,7 @@ use Prophecy\Prophet;
 class TokenServerSpec extends ObjectBehavior
 {
     /**
-     * @param \MvcAuthToken\Adapter\AdapterInterface $adapter
+     * @param \Phpro\MvcAuthToken\Adapter\AdapterInterface $adapter
      */
     protected function mockAdapter($adapter)
     {
@@ -20,7 +20,7 @@ class TokenServerSpec extends ObjectBehavior
     }
 
     /**
-     * @param \MvcAuthToken\Token $token
+     * @param \Phpro\MvcAuthToken\Token $token
      */
     protected function mockToken($token)
     {
@@ -31,11 +31,11 @@ class TokenServerSpec extends ObjectBehavior
 
     public function it_is_initializable()
     {
-        $this->shouldHaveType('MvcAuthToken\TokenServer');
+        $this->shouldHaveType('Phpro\MvcAuthToken\TokenServer');
     }
 
     /**
-     * @param \MvcAuthToken\Adapter\AdapterInterface $adapter
+     * @param \Phpro\MvcAuthToken\Adapter\AdapterInterface $adapter
      */
     public function it_should_have_adapter($adapter)
     {
@@ -62,7 +62,7 @@ class TokenServerSpec extends ObjectBehavior
     }
 
     /**
-     * @param \MvcAuthToken\Token $token
+     * @param \Phpro\MvcAuthToken\Token $token
      */
     public function it_should_have_token($token)
     {
@@ -80,7 +80,7 @@ class TokenServerSpec extends ObjectBehavior
         $request->getHeader('Authorization')->willReturn($authorizationHeader);
         $this->setRequest($request);
 
-        $this->createToken()->shouldReturnAnInstanceOf('MvcAuthToken\Token');
+        $this->createToken()->shouldReturnAnInstanceOf('Phpro\MvcAuthToken\Token');
     }
 
     /**
@@ -98,12 +98,12 @@ class TokenServerSpec extends ObjectBehavior
         // No authentication header was set
         $this->setRequest($request);
         $request->getHeader('Authorization')->willReturn(null);
-        $this->shouldThrow('MvcAuthToken\Exception\TokenException')->duringCreateToken();
+        $this->shouldThrow('Phpro\MvcAuthToken\Exception\TokenException')->duringCreateToken();
 
         // Invalid authentication type
         $authorizationHeader->getFieldValue()->willReturn('Basic base64_user_and_password');
         $request->getHeader('Authorization')->willReturn($authorizationHeader);
-        $this->shouldThrow('MvcAuthToken\Exception\TokenException')->duringCreateToken();
+        $this->shouldThrow('Phpro\MvcAuthToken\Exception\TokenException')->duringCreateToken();
     }
 
     public function it_should_serialize_token_parameters()
@@ -116,8 +116,8 @@ class TokenServerSpec extends ObjectBehavior
     }
 
     /**
-     * @param \MvcAuthToken\Token $token
-     * @param \MvcAuthToken\Adapter\AdapterInterface $adapter
+     * @param \Phpro\MvcAuthToken\Token $token
+     * @param \Phpro\MvcAuthToken\Adapter\AdapterInterface $adapter
      */
     public function it_should_validate_token($token, $adapter)
     {
@@ -133,8 +133,8 @@ class TokenServerSpec extends ObjectBehavior
     }
 
     /**
-     * @param \MvcAuthToken\Token $token
-     * @param \MvcAuthToken\Adapter\AdapterInterface $adapter
+     * @param \Phpro\MvcAuthToken\Token $token
+     * @param \Phpro\MvcAuthToken\Adapter\AdapterInterface $adapter
      */
     public function it_should_authenticate_request($token, $adapter)
     {
@@ -145,8 +145,8 @@ class TokenServerSpec extends ObjectBehavior
     }
 
     /**
-     * @param \MvcAuthToken\Token $token
-     * @param \MvcAuthToken\Adapter\AdapterInterface $adapter
+     * @param \Phpro\MvcAuthToken\Token $token
+     * @param \Phpro\MvcAuthToken\Adapter\AdapterInterface $adapter
      */
     public function it_should_be_able_to_retrieve_user_id($token, $adapter)
     {
