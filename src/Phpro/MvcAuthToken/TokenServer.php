@@ -157,9 +157,11 @@ class TokenServer
             throw new TokenException('No authentication params detected');
         }
 
+        $parameters = array_merge($this->defaultParameters, $tokenParams);
         $token = new Token();
+
         $hydrator = new ClassMethods();
-        $hydrator->hydrate($tokenParams, $token);
+        $hydrator->hydrate($parameters, $token);
 
         return $token;
     }
