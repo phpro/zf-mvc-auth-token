@@ -119,8 +119,11 @@ class TokenServer
     {
         $authorization = $this->getRequest()->getHeader('Authorization');
         if (!$authorization) {
-            // TODO: challenge client (HTTP 401 - WWW-Authenticate)
-            throw new TokenException('No authentication type detected');
+            try {
+                return $this->createTokenFromQueryParams();
+            } catch (TokenException$e ) {
+                throw new TokenException('No authentication type detected');
+            }
         }
 
         list($type, $credential) = preg_split('# #', $authorization->getFieldValue(), 2);
@@ -131,7 +134,7 @@ class TokenServer
         }
 
         // Get parameters:
-        $parameters = $this->getTokenParameters($credential);
+        $parameters = $this->getTokenParametersFromHeader($credential);
         $token = new Token();
 
         // Hydrate params:
@@ -142,11 +145,31 @@ class TokenServer
     }
 
     /**
+     * Create a token based on query parameters:
+     *
+     * @return Token
+     * @throws Exception\TokenException
+     */
+    public function createTokenFromQueryParams()
+    {
+        $tokenParams = $this->getRequest()->getQuery('token', []);
+        if (!$tokenParams || !is_array($tokenParams)) {
+            throw new TokenException('No authentication params detected');
+        }
+
+        $token = new Token();
+        $hydrator = new ClassMethods();
+        $hydrator->hydrate($tokenParams, $token);
+
+        return $token;
+    }
+
+    /**
      * @param $credential
      *
      * @return array
      */
-    public function getTokenParameters($credential)
+    public function getTokenParametersFromHeader($credential)
     {
         $parts = explode(',', $credential);
         $token = array_merge(array(), $this->defaultParameters);

@@ -74,7 +74,7 @@ class TokenServerSpec extends ObjectBehavior
      * @param \Zend\Http\Request $request
      * @param \Zend\Http\Header\Authorization $authorizationHeader
      */
-    public function it_should_create_token($request, $authorizationHeader)
+    public function it_should_create_token_from_authentication_header($request, $authorizationHeader)
     {
         $authorizationHeader->getFieldValue()->willReturn('Token token="user_token_id", auth="encrypted_auth"');
         $request->getHeader('Authorization')->willReturn($authorizationHeader);
@@ -84,19 +84,47 @@ class TokenServerSpec extends ObjectBehavior
     }
 
     /**
-     * @TODO Wait for phpspec issue to close
-     *
+     * @param \Zend\Http\Request $request
+     */
+    public function it_should_create_token_from_query_parameters($request)
+    {
+        $request->getQuery('token', [])->willReturn([
+            'token' => 'user_token_id',
+            'auth' => 'encrypted_auth',
+        ]);
+
+        $this->setRequest($request);
+        $this->createTokenFromQueryParams()->shouldReturnAnInstanceOf('Phpro\MvcAuthToken\Token');
+    }
+
+    /**
+     * @param \Zend\Http\Request $request
+     */
+    public function it_should_fall_back_on_query_token_when_no_authentication_header_is_available($request)
+    {
+        $request->getHeader('Authorization')->willReturn(null);
+        $request->getQuery('token', [])->willReturn([
+                'token' => 'user_token_id',
+                'auth' => 'encrypted_auth',
+            ]);
+
+        $this->setRequest($request);
+        $this->createToken()->shouldReturnAnInstanceOf('Phpro\MvcAuthToken\Token');
+    }
+
+    /**
      * @param \Zend\Http\Request $request
      * @param \Zend\Http\Header\Authorization $authorizationHeader
      */
-    public function it_should_not_create_token_on_invalid_authorization_header($request, $authorizationHeader)
+    public function it_should_not_create_token_on_invalid_requests($request, $authorizationHeader)
     {
-        // Run this spec when this ticket is closed:
-        // @link https://github.com/phpspec/phpspec/issues/242
-        return;
+        $this->setRequest($request);
+
+        // Invalid query params:
+        $request->getQuery('token', [])->willReturn([]);
+        $this->shouldThrow('Phpro\MvcAuthToken\Exception\TokenException')->duringCreateTokenFromQueryParams();
 
         // No authentication header was set
-        $this->setRequest($request);
         $request->getHeader('Authorization')->willReturn(null);
         $this->shouldThrow('Phpro\MvcAuthToken\Exception\TokenException')->duringCreateToken();
 
@@ -108,7 +136,7 @@ class TokenServerSpec extends ObjectBehavior
 
     public function it_should_serialize_token_parameters()
     {
-        $result = $this->getTokenParameters('token="user_token_id", auth="encrypted_auth');
+        $result = $this->getTokenParametersFromHeader('token="user_token_id", auth="encrypted_auth');
 
         $result->shouldBeArray();
         $result['token']->shouldBe('user_token_id');

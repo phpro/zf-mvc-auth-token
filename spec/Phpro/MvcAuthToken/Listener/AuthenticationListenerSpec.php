@@ -41,9 +41,9 @@ class AuthenticationListenerSpec extends ObjectBehavior
     /**
      * @param \ZF\MvcAuth\MvcAuthEvent $mvcAuthEvent
      * @param \Zend\Mvc\MvcEvent $mvcEvent
-     * @param \Zend\Console\Request $request
+     * @param \Zend\Stdlib\RequestInterface $request
      */
-    public function it_should_do_nothing_on_console_request($mvcAuthEvent, $mvcEvent, $request)
+    public function it_should_do_nothing_on_non_http_request($mvcAuthEvent, $mvcEvent, $request)
     {
         $mvcAuthEvent->getMvcEvent()->willReturn($mvcEvent);
         $mvcEvent->getRequest()->willReturn($request);

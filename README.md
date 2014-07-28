@@ -3,7 +3,24 @@ This module will take care of HTTP Token authentication as described in the [dra
 
 The purpose of this module is to provide an extendable interface for validating Tokens. The validation of the Token should be done in a custom adapter.
 
-## Installation
+## Query params
+In some situations, it is not possible to add the Authentication header to the request.
+Therefor the token parameters can also be added as query parameters:
+
+```
+http://yourserver.local/endpoint
+    ?token[realm]=realm
+    &token[token]=token
+    &token[coverage]=coverage
+    &token[nonce]=nonce
+    &token[timestamp]=timestamp
+    &token[auth]=auth
+```
+
+*Note*: This part of the authentication is not in the official draft, but could be useful in some situations.
+
+
+# Installation
 ```
 curl -s https://getcomposer.org/installer | php
 php composer.phar install
