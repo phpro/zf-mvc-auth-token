@@ -1,3 +1,8 @@
+> ## Repository abandoned 2020-11-27
+>
+> This repository has been archived since we are not using it anymore internally.
+> Feel free to use it AS-IS, we won't be providing any support anymore.
+
 # Mvc-Auth-Token implementation for zend framework 2
 This module will take care of HTTP Token authentication as described in the [draft-hammer-http-token-auth-01](http://tools.ietf.org/html/draft-hammer-http-token-auth-01). It should be used with [zf-mvc-auth](https://github.com/zfcampus/zf-mvc-auth). 
 
